@@ -118,7 +118,7 @@ img{
 <body>
 
 <!-- 🎵 SONG (replace song.mp3 later) -->
-<audio autoplay loop hidden>
+<audio id="bgMusic" loop hidden>
     <source src="./song.mp3" type="audio/mpeg">
 </audio>
 
@@ -227,8 +227,13 @@ function next(){
     i++;
     if(i>=sections.length) i=sections.length-1;
     sections[i].classList.add('active');
+
+    // play song after first click
+    const music = document.getElementById("bgMusic");
+    music.play().catch(()=>{});
+
     if(sections[i].id==="final") fireworks();
-}
+};
 
 /* ===== FLOATING HEARTS ===== */
 setInterval(()=>{
@@ -259,3 +264,4 @@ function fireworks(){
 
 </body>
 </html>
+
