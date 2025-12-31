@@ -21,7 +21,6 @@ body{
     color:#f5e9ff;
 }
 
-/* ===== SECTIONS ===== */
 .section{
     width:100vw;
     height:100vh;
@@ -40,7 +39,6 @@ body{
     to{opacity:1;transform:translateY(0);}
 }
 
-/* ===== CARD ===== */
 .card{
     background:rgba(255,255,255,0.08);
     backdrop-filter:blur(12px);
@@ -51,7 +49,6 @@ body{
     box-shadow:0 15px 40px rgba(0,0,0,0.6);
 }
 
-/* ===== BUTTON ===== */
 button{
     margin-top:22px;
     padding:14px 34px;
@@ -65,7 +62,6 @@ button{
 }
 button:active{transform:scale(0.88);}
 
-/* ===== HEARTS ===== */
 .heart{
     position:fixed;
     bottom:-20px;
@@ -76,14 +72,12 @@ button:active{transform:scale(0.88);}
     to{transform:translateY(-120vh) scale(1.7);opacity:0;}
 }
 
-/* ===== IMAGES ===== */
 img{
     max-width:180px;
     border-radius:22px;
     margin:16px 0;
 }
 
-/* ===== MEMORIES ===== */
 .memories{
     display:flex;
     gap:16px;
@@ -98,7 +92,6 @@ img{
     box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
-/* ===== FIREWORKS ===== */
 .firework{
     position:fixed;
     width:6px;
@@ -117,7 +110,7 @@ img{
 
 <body>
 
-<!-- 🎵 SONG (replace song.mp3 later) -->
+<!-- 🎵 SONG -->
 <audio id="bgMusic" loop hidden>
     <source src="./song1.mp3" type="audio/mpeg">
 </audio>
@@ -127,8 +120,8 @@ img{
     <div class="card">
         <h1>Hey My Love 💜</h1>
         <p>
-            I made this little surprise for you,  
-            wrapped in the colors of the night  
+            I made this little surprise for you,<br>
+            wrapped in the colors of the night<br>
             and filled with everything I feel for you.
         </p>
         <button onclick="next()">Start ✨</button>
@@ -140,11 +133,19 @@ img{
     <div class="card">
         <h2>Are you ready? 🐱</h2>
         <img src="./catt.png">
+
         <p>
-            Because every step ahead  
+            Because every step ahead<br>
             is another heartbeat closer to us.
         </p>
-        <button onclick="next()">Yes 💕</button>
+
+        <div style="display:flex; gap:14px; justify-content:center;">
+            <button onclick="next()">Yes 💕</button>
+            <button onclick="noClicked()">No..</button>
+        </div>
+
+        <p id="noMsg" style="margin-top:12px; color:#ffb3d9; font-size:18px; display:none;">
+        </p>
     </div>
 </div>
 
@@ -153,12 +154,12 @@ img{
     <div class="card">
         <h2>Our Story 💫</h2>
         <p>
-            Somewhere between late-night talks  
-            and quiet smiles,  
+            Somewhere between late-night talks<br>
+            and quiet smiles,<br>
             you became my favorite person.
         </p>
         <p>
-            With you, love feels easy,  
+            With you, love feels easy,<br>
             warm, and beautifully real.
         </p>
         <button onclick="next()">Next 💜</button>
@@ -170,12 +171,11 @@ img{
     <div class="card">
         <h2>Our Memories 📸</h2>
         <p>
-            Two moments, endless feelings,  
+            Two moments, endless feelings,<br>
             and a lifetime still waiting.
         </p>
 
         <div class="memories">
-            <!-- 🔧 Replace later with real photos -->
             <img src="./p1.jpeg">
             <img src="./p2.jpeg">
         </div>
@@ -189,7 +189,7 @@ img{
     <div class="card">
         <h2>Our Song 🎶</h2>
         <p>
-            This song feels like us —  
+            This song feels like us —<br>
             every note, every pause, every emotion.
         </p>
         <p style="opacity:0.8;">
@@ -204,13 +204,13 @@ img{
     <div class="card">
         <h1>Happy New Year My Love 🎆</h1>
         <p>
-            Thank you for choosing me,  
-            for loving me,  
+            Thank you for choosing me,<br>
+            for loving me,<br>
             and for being my safest place.
         </p>
         <p>
-            I want every midnight,  
-            every dream,  
+            I want every midnight,<br>
+            every dream,<br>
             and every tomorrow — with you.
         </p>
         <p style="margin-top:10px;">Forever yours 💜</p>
@@ -218,7 +218,6 @@ img{
 </div>
 
 <script>
-/* ===== SECTIONS ===== */
 const sections=document.querySelectorAll('.section');
 let i=0;
 
@@ -228,14 +227,19 @@ function next(){
     if(i>=sections.length) i=sections.length-1;
     sections[i].classList.add('active');
 
-    // play song after first click
-    const music = document.getElementById("bgMusic");
+    // play music only after first click
+    const music=document.getElementById("bgMusic");
     music.play().catch(()=>{});
 
     if(sections[i].id==="final") fireworks();
-};
+}
 
-/* ===== FLOATING HEARTS ===== */
+function noClicked(){
+    const msg=document.getElementById("noMsg");
+    msg.innerText="Aree 😤 No kyu? — jaldi Yes dabao 💕";
+    msg.style.display="block";
+}
+
 setInterval(()=>{
     const h=document.createElement("div");
     h.className="heart";
@@ -246,7 +250,6 @@ setInterval(()=>{
     setTimeout(()=>h.remove(),10000);
 },450);
 
-/* ===== FIREWORKS (VIOLET THEME) ===== */
 function fireworks(){
     for(let i=0;i<70;i++){
         const f=document.createElement("div");
@@ -263,6 +266,4 @@ function fireworks(){
 </script>
 
 </body>
-</html>
-
-
+    </html>
