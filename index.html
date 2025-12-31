@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Baloo 2', cursive;
+}
+
+body{
+    overflow:hidden;
+    background:linear-gradient(135deg,#12001f,#2b0040,#3a005f);
+    color:#f5e9ff;
+}
+
+/* ===== SECTIONS ===== */
+.section{
+    width:100vw;
+    height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+}
+.section.active{
+    display:flex;
+    animation:fade 1s ease;
+}
+@keyframes fade{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== CARD ===== */
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    padding:30px;
+    border-radius:30px;
+    max-width:420px;
+    width:100%;
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* ===== BUTTON ===== */
+button{
+    margin-top:22px;
+    padding:14px 34px;
+    border:none;
+    border-radius:50px;
+    font-size:18px;
+    background:linear-gradient(135deg,#b14cff,#7f4dff);
+    color:white;
+    cursor:pointer;
+    transition:transform 0.2s;
+}
+button:active{transform:scale(0.88);}
+
+/* ===== HEARTS ===== */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    animation:float 10s linear infinite;
+    opacity:0.9;
+}
+@keyframes float{
+    to{transform:translateY(-120vh) scale(1.7);opacity:0;}
+}
+
+/* ===== IMAGES ===== */
+img{
+    max-width:180px;
+    border-radius:22px;
+    margin:16px 0;
+}
+
+/* ===== MEMORIES ===== */
+.memories{
+    display:flex;
+    gap:16px;
+    margin-top:20px;
+    justify-content:center;
+}
+.memories img{
+    width:140px;
+    height:180px;
+    object-fit:contain;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.6);
+}
+
+/* ===== FIREWORKS ===== */
+.firework{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    animation:explode 1.2s ease-out forwards;
+}
+@keyframes explode{
+    to{
+        transform:translate(var(--x),var(--y)) scale(0);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 SONG (replace song.mp3 later) -->
+<audio autoplay loop hidden>
+    <source src="./song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 💜 INTRO -->
+<div class="section active">
+    <div class="card">
+        <h1>Hey My Love 💜</h1>
+        <p>
+            I made this little surprise for you,  
+            wrapped in the colors of the night  
+            and filled with everything I feel for you.
+        </p>
+        <button onclick="next()">Start ✨</button>
+    </div>
+</div>
+
+<!-- 🐱 READY -->
+<div class="section">
+    <div class="card">
+        <h2>Are you ready? 🐱</h2>
+        <img src="./catt.png">
+        <p>
+            Because every step ahead  
+            is another heartbeat closer to us.
+        </p>
+        <button onclick="next()">Yes 💕</button>
+    </div>
+</div>
+
+<!-- 📖 STORY -->
+<div class="section">
+    <div class="card">
+        <h2>Our Story 💫</h2>
+        <p>
+            Somewhere between late-night talks  
+            and quiet smiles,  
+            you became my favorite person.
+        </p>
+        <p>
+            With you, love feels easy,  
+            warm, and beautifully real.
+        </p>
+        <button onclick="next()">Next 💜</button>
+    </div>
+</div>
+
+<!-- 📸 MEMORIES -->
+<div class="section">
+    <div class="card">
+        <h2>Our Memories 📸</h2>
+        <p>
+            Two moments, endless feelings,  
+            and a lifetime still waiting.
+        </p>
+
+        <div class="memories">
+            <!-- 🔧 Replace later with real photos -->
+            <img src="./p1.jpeg">
+            <img src="./p2.jpeg">
+        </div>
+
+        <button onclick="next()">Continue ✨</button>
+    </div>
+</div>
+
+<!-- 🎵 SONG PAGE -->
+<div class="section">
+    <div class="card">
+        <h2>Our Song 🎶</h2>
+        <p>
+            This song feels like us —  
+            every note, every pause, every emotion.
+        </p>
+        <p style="opacity:0.8;">
+            (Playing softly in the background 💜)
+        </p>
+        <button onclick="next()">Final 🎆</button>
+    </div>
+</div>
+
+<!-- 🎆 FINAL -->
+<div class="section" id="final">
+    <div class="card">
+        <h1>Happy New Year My Love 🎆</h1>
+        <p>
+            Thank you for choosing me,  
+            for loving me,  
+            and for being my safest place.
+        </p>
+        <p>
+            I want every midnight,  
+            every dream,  
+            and every tomorrow — with you.
+        </p>
+        <p style="margin-top:10px;">Forever yours 💜</p>
+    </div>
+</div>
+
+<script>
+/* ===== SECTIONS ===== */
+const sections=document.querySelectorAll('.section');
+let i=0;
+
+function next(){
+    sections[i].classList.remove('active');
+    i++;
+    if(i>=sections.length) i=sections.length-1;
+    sections[i].classList.add('active');
+    if(sections[i].id==="final") fireworks();
+}
+
+/* ===== FLOATING HEARTS ===== */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💜";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=18+Math.random()*20+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),10000);
+},450);
+
+/* ===== FIREWORKS (VIOLET THEME) ===== */
+function fireworks(){
+    for(let i=0;i<70;i++){
+        const f=document.createElement("div");
+        f.className="firework";
+        f.style.left="50vw";
+        f.style.top="50vh";
+        f.style.background=`hsl(${260+Math.random()*40},100%,70%)`;
+        f.style.setProperty("--x",(Math.random()*500-250)+"px");
+        f.style.setProperty("--y",(Math.random()*500-250)+"px");
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1200);
+    }
+}
+</script>
+
+</body>
+</html>
